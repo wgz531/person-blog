@@ -1,7 +1,7 @@
 {
-  "name": "xfz_front",
+  "name": "blog_front",
   "version": "1.0.0",
-  "description": "xfz front code",
+  "description": "blog front code",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
