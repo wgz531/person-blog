@@ -1,0 +1,75 @@
+{% extends 'cms/base.html' %}
+
+{% block title %}
+    {% if articles %}
+        编辑文章
+    {% else %}
+        发布文章
+    {% endif %}
+{% endblock %}
+
+{% block head %}
+    <script src="https://unpkg.com/qiniu-js@2.4.0/dist/qiniu.min.js"></script>
+    <script src="{% static 'ueditor/ueditor.config.js' %}"></script>
+    <script src="{% static 'ueditor/ueditor.all.min.js' %}"></script>
+    <script src="{% static 'js/write_articles.min.js' %}"></script>
+{% endblock %}
+
+{% block content-header %}
+    <h1>
+    {% if articles %}
+        编辑文章
+    {% else %}
+        发布文章
+    {% endif %}
+    </h1>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <form action="" class="form">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="title-form">标题</label>
+                            {% if articles %}
+                                <input type="text" class="form-control" name="title" id="title-form" value="{{ articles.title }}">
+                            {% else %}
+                                <input type="text" class="form-control" name="title" id="title-form">
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="category-form">分类</label>
+                            <select name="category" id="category-form" class="form-control">
+                                {% for category in categories %}
+                                    {% if articles and articles.category_id == category.pk %}
+                                        <option value="{{ category.pk }}" >{{ category.name }}</option>
+                                    {% else %}
+                                        <option value="{{ category.pk }}" >{{ category.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="desc-form">描述</label>
+                            {% if articles %}
+                                <input type="text" class="form-control" id="desc-form" name="desc" value="{{ articles.desc }}">
+                            {% else %}
+                                <input type="text" class="form-control" id="desc-form" name="desc">
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="content-form">内容</label>
+                            <script id="editor" type="text/plain">{{ articles.content|safe }}</script>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button id="submit-btn" data-articles-id="{{ articles.pk }}" class="btn btn-primary pull-right">发布文章</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

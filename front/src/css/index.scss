@@ -1,0 +1,90 @@
+@import "init.scss";
+@import "constants.scss";
+@import "header.scss";
+@import "body.scss";
+@import "footer.scss";
+@import "articles_list";
+
+
+
+
+
+.main{
+    .wrapper{
+        .main-content-wrapper{
+            .list-outer-group{
+                //background: #fff;
+                //margin-top: 14px;
+                width: 100%;
+
+                .list-tab{
+                    width: 100%;
+                    height: 62px;
+                    overflow: hidden;
+                    border: 1px solid #eeeeee;
+                    border-left: none;
+                    border-right: none;
+
+                    li{
+                        float: left;
+                        padding: 0 10px;
+                        margin-top: 20px;
+                        margin-right: 20px;
+                        a{
+                            color: #878787;
+                            &:hover{
+                                color: black;
+                            }
+                        }
+                        &:first-of-type{
+                            border-left: 5px solid $themeColor;
+                        }
+                        &.active{
+                            a{
+                                color: #060606;
+                            }
+                        }
+                    }
+                }
+
+                .list-inner-group{
+                    @include articles_list;
+                }
+
+                .load-more-group{
+                    padding: 20px 0;
+                    text-align: center;
+                    //border: 1px solid #eeeeee;
+                    .load-more{
+                        width: 50%;
+                        height: 40px;
+                        background: #d2dcea;
+                        color: #6d85ac;
+                        border: none;
+                        outline: none;
+                        cursor: pointer;
+                        border-radius: 3px;
+                    }
+                }
+                .site-info{
+                    width: 100%;
+                    height: 64px;
+                    position: relative;
+                    line-height: 25px;
+                    color: #444444;
+                    font-size: 12px;
+                    padding: 20px 30px;
+                    box-sizing: border-box;
+
+                    a{
+                        padding: 5px 8px;
+                        color: #686868;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+

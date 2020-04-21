@@ -1,0 +1,135 @@
+{% extends 'base/front_base.html' %}
+
+{% block title %}
+    个人博客
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/index.min.css' %}">
+    <script src="{% static 'arttemplate/template-web.js' %}"></script>
+    <script src="{% static 'js/index.min.js' %}"></script>
+<script id="articles-item" type="text/html">
+
+{% verbatim %}
+{{ each articles article index }}
+<li>
+    <div class="articles-group">
+        <p class="title">
+            <a href="/articles/{{ article.id }}/" target="_blank">{{ article.title }}</a>
+        </p>
+        <p class="desc">{{ article.desc }}</p>
+        <p class="more">
+            分类：
+            <span class="category">{{ article.category.name }}</span>
+            <span class="pub-time">{{ article.pub_time|timeNormal}}</span>
+        </p>
+    </div>
+</li>
+{{ /each }}
+{% endverbatim %}
+
+</script>
+{% endblock %}
+
+{% block nav %}
+    <li class="active"><a href="/">首页</a></li>
+    <li><a href="{% url 'aboutme' %}" >关于</a></li>
+{% endblock %}
+
+{% block main %}
+    <div class="main">
+        <div class="wrapper">
+            <div class="main-content-wrapper">
+                <div class="list-outer-group">
+                    <ul class="list-tab">
+                        <li data-category="0" class="active"><a href="javascript:void(0);">所有文章</a></li>
+                        {% for category in categories %}
+                            <li data-category="{{ category.pk }}"><a href="javascript:void(0);">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="list-inner-group">
+                        {% for article in articles %}
+                            <li>
+                                <div class="articles-group">
+                                <div>
+                                <p class="title">
+                                    <a href="{% url 'articles:articles_detail' articles_id=article.pk %}" target="_blank">{{ article.title }}</a>
+                                </p>
+                                </div>
+                                <div>
+                                <p class="desc">
+                                    {{ article.desc }}
+                                </p>
+                                </div>
+                                <p class="more">
+                                    分类：
+                                   <span class="category">{{ article.category.name }}</span>
+                                    <span class="pub-time">{{ article.pub_time|date:"Y-m-d"}}</span>
+                                </p>
+                            </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="load-more-group">
+                        <button class="load-more" id="load-more-btn">查看更多</button>
+                    </div>
+                    <div class="site-info">
+			            <span>友情链接：</span>
+						<a href="#" >我的博客</a>
+						<a href="http://www.liuguanjin.top/" target="_blank">う渐垳渐逺ゝ的博客</a>
+						<a href="#" target=&quot;_blank&quot;>窝心美文</a>
+					</div>
+                </div>
+            </div>
+            <div class="sidebar-wrapper">
+                <div class="search-group">
+                    <form  action="{% url 'index' %}" method="get">
+                    {% if keywords %}
+                    <div>
+						<input placeholder="搜索" type="text" class="search-input" name="keywords" id="s" data-kw="{{ keywords }}" value="{{ keywords }}">
+						<input type="submit" class="search-btn"  value="搜索" >
+					</div>
+                    {% else %}
+					<div>
+						<input placeholder="搜索" type="text" class="search-input" name="keywords" id="s" data-kw="">
+						<input type="submit" class="search-btn"  value="搜索" >
+					</div>
+                    {% endif %}
+				</form>
+                </div>
+                <div class="title-group">
+                    <h3 class="title">最近更新</h3>
+                </div>
+                <div class="article-list">
+                    <ul>
+                        {% for article in articles_recent %}
+                            <li><a href="{% url 'articles:articles_detail' articles_id=article.pk %}" target="_blank">{{ article.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="archive-group">
+                    <div class="title-group">
+                        <h3 class="title">文章归档</h3>
+                    </div>
+                    <div class="article-list">
+                    <ul>
+                        {% for date in dates %}
+                            <li>
+                                <a href="{% url 'date' date.year date.month date.day%}">{{ date.year }}年{{ date.month }}月{{ date.day }}日 </a>
+                            </li>
+                        {% empty %}
+                            暂无归档！
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="advertise-group">
+                    <a >
+                        <img src="http://q8765hdsr.bkt.clouddn.com/1587362961284.png" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

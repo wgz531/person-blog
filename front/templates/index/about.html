@@ -1,0 +1,38 @@
+{% extends 'base/front_base.html' %}
+
+{% block title %}
+    关于博主
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/about.min.css' %}">
+    <script src="{% static 'arttemplate/template-web.js' %}"></script>
+{% endblock %}
+
+{% block nav %}
+    <li ><a href="/">首页</a></li>
+    <li class="active"><a href="{% url 'aboutme' %}" >关于</a></li>
+{% endblock %}
+
+{% block main %}
+    <div class="main">
+        <div class="wrapper">
+            <div class="main-top">
+                <h2 class="title">关于博主</h2>
+            </div>
+            <div class="main-content">
+                <div class="about">
+                    <h3>个人简介</h3>
+                    <p><img src="http://image.biaobaiju.com/uploads/20180801/23/1533137966-hzgOENDjaW.jpg" alt="" ></p>
+                    <p>python爱好者</p>
+                    <div class="git"><img src="http://q8765hdsr.bkt.clouddn.com/1587375358438.png" alt="" >
+                        <a href="#">github</a>
+                    </div>
+                    <p>爱生活，爱音乐，爱拉芳</p>
+                    <p>让我们红尘作伴，活得潇潇洒洒</p>
+                    <h3>关于技能点</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

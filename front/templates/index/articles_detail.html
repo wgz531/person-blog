@@ -1,0 +1,174 @@
+{% extends 'base/front_base.html' %}
+{% load articles_filters %}
+
+{% block title %}
+    文章详情
+{% endblock %}
+
+{% block nav %}
+    <li ><a href="/">首页</a></li>
+    <li><a href="{% url 'aboutme' %}" >关于</a></li>
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/articles_detail.min.css' %}">
+
+    <script src="{% static 'arttemplate/template-web.js' %}"></script>
+    <script src="{% static 'js/articles_detail.min.js' %}"></script>
+<script id="comment-item" type="text/html">
+{% verbatim %}
+<li>
+    <div class="comment-info">
+        <img src="https://static-image.xfz.cn/1577153468_501.jpg-member.photo" alt="" class="avatar">
+        <span class="author">{{ comment.author.username }}</span>
+        <span class="pub-time">{{ comment.pub_time|timeSince }}</span>
+    </div>
+    <p class="comment-content">{{ comment.content }}</p>
+</li>
+{% endverbatim %}
+</script>
+{% endblock %}
+
+{% block main %}
+    <div class="main">
+        <div class="wrapper">
+            <div class="main-content-wrapper">
+                <div class="articles-wrapper">
+                    <h1 class="title">{{ articles.title }}</h1>
+                    <div class="articles-info">
+                        <div class="info-group">
+                            <span class="author">{{ articles.author.username }}</span>
+                            <span class="pub-time">{{ articles.pub_time |date:"Y-m-d"}}</span>
+                            <span class="category">{{articles.category.name}}</span>
+                        </div>
+                        <div class="share-group">
+                            <span>分享至：</span>
+                            <a class="weixin share-item"></a>
+                            <a href="#" class="weibo share-item"></a>
+                        </div>
+                    </div>
+                    <article class="article">
+					    {{ articles.content | safe }}
+                    </article>
+                </div>
+                <div class="comment-wrapper">
+                    <h3 class="title" id="num">文章评论 ( {{ comments_count.comments_count }} )</h3>
+                    {% if user.is_authenticated %}
+                        <textarea name="comment" class="comment-textarea logined-textarea" placeholder="立即登录，参与评论~"></textarea>
+                    {% else %}
+                        <textarea name="comment" class="comment-textarea nologin-textarea" placeholder="立即登录，参与评论~"></textarea>
+                    {% endif %}
+                    <div class="submit-btn-group">
+                        <button id="comment-btn" class="submit-btn" data-articles-id="{{ articles.pk }}" >立即评论</button>
+                    </div>
+                    <ul class="comment-list">
+                        {% for comment in comments %}
+                            <li>
+                                <div class="comment-info">
+                                    <img src="http://q8765hdsr.bkt.clouddn.com/1587374637406.png" alt="" class="avatar">
+                                    <span class="author">{{ comment.author.username }}</span>
+                                    <span class="pub-time">{{ comment.pub_time|time_since }}</span>
+                                </div>
+                                <p class="comment-content">{{ comment.content }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                <div class="page">
+                    <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                            <li>
+                              <a href="?p={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">上一页</span>
+                              </a>
+                            </li>
+                            {% else %}
+                                <li>
+                              <a href="javascript:void(0);" aria-label="Previous">
+                                <span aria-hidden="true">上一页</span>
+                              </a>
+                            </li>
+                            {% endif %}
+
+                            {% if left_has_more %}
+                                <li><a href="?p=1">1</a></li>
+                                <li><a href="javascript:void(0);">...</a></li>
+                            {% endif %}
+
+                            {% for left_page in left_pages %}
+                                <li><a href="?p={{ left_page }}">{{ left_page }}</a></li>
+                            {% endfor %}
+
+                            <li class="active"><a href="javascript:void(0);">{{ current_page }}</a></li>
+
+                            {% for right_page in right_pages %}
+                                <li><a href="?p={{ right_page }}">{{ right_page }}</a></li>
+                            {% endfor %}
+
+                            {% if right_has_more %}
+                                <li><a href="javascript:void(0);">...</a></li>
+                                <li><a href="?p={{ num_pages }}">{{ num_pages }}</a></li>
+                            {% endif %}
+
+                            {% if page_obj.has_next %}
+                                <li>
+                              <a href="?p={{ page_obj.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">下一页</span>
+                              </a>
+                            </li>
+                            {% else %}
+                                <li>
+                              <a href="javascript:void(0)" aria-label="Next">
+                                <span aria-hidden="true">下一页</span>
+                              </a>
+                            </li>
+                            {% endif %}
+
+                      </ul>
+                </div>
+                </div>
+            </div>
+            <div class="sidebar-wrapper">
+                <div class="search-group">
+                    <form  action="{% url 'index' %}" method="get">
+					<div>
+						<input placeholder="搜索" type="text" class="search-input" name="keywords" id="kw" >
+                        <button type="submit" class="search-btn">搜索</button>
+					</div>
+				    </form>
+                </div>
+                <div class="title-group">
+                    <h3 class="title">最近更新</h3>
+                </div>
+                <div class="article-list">
+                    <ul>
+                        {% for article in articles_all %}
+                            <li><a href="{% url 'articles:articles_detail' articles_id=article.pk %}">{{ article.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="archive-group">
+                    <div class="title-group">
+                        <h3 class="title">文章归档</h3>
+                    </div>
+                    <div class="article-list">
+                    <ul>
+                        {% for date in dates %}
+                            <li>
+                                <a href="{% url 'date' date.year date.month date.day%}">{{ date.year }}年{{ date.month }}月{{ date.day }}日 </a>
+                            </li>
+                        {% empty %}
+                            暂无归档！
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="advertise-group">
+                    <a >
+                        <img src="http://q8765hdsr.bkt.clouddn.com/1587362961284.png" alt="">
+                    </a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

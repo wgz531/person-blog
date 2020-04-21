@@ -1,0 +1,90 @@
+@import "init.scss";
+@import "constants.scss";
+@import "header.scss";
+@import "body.scss";
+@import "footer.scss";
+@import "articles_list";
+
+body{
+    background: #e6e6e6//#f2f2f2;
+}
+
+.main{
+    width: 100%;
+    margin-top: $navHeight + 15px;
+
+    .wrapper{
+        max-width: 1220px;
+        //width: 81.632%;//$pageWidth;
+        //height: 1024px;
+        margin: 0 auto;
+        //padding: 0 40px;
+        //box-sizing: border-box;
+        overflow: hidden;
+        //background: #ffffff;
+
+
+        .main-top{
+            width: 100%;//$mainBoxWidth;
+            padding: 10px 20px 8px;
+            line-height: 24px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 0;
+            background-color: #fff;
+            h2{
+                color: #666666;
+                font-size: 21px;
+                font-weight: 400;
+            }
+        }
+        .main-content{
+            height: 500px;
+            font-size: 15px;
+            line-height: 26px;
+            text-indent: 30px;
+            word-break: break-all;
+            word-wrap: break-word;
+            position: relative;
+            padding: 20px 20px 20px 20px;
+            background-color: #fff;
+            .about{
+                box-sizing: border-box;
+                text-align: center;
+                color: #555555;
+                h3{
+                    text-align: center;
+                    font-size: 18px;
+                    background-color: #f8f8f8;
+                    padding: 10px 0 10px 0;
+                    margin-bottom: 10px;
+                    border-left: 5px solid #5c87d9;
+                }
+                p{
+                    text-align: center;
+                    margin-bottom: 10px;
+                    img{
+                        max-width: 100px;
+                        max-height: 100px;
+                        border-radius: 50%;
+
+                    }
+
+                }
+                .git{
+                    margin-bottom: 10px;
+                    img{
+                        max-width: 100px;
+                        max-height: 100px;
+                        border-radius: 50%;
+                        vertical-align:middle;
+
+                    }
+                    a{
+                        color: #1890ff;
+                        vertical-align:middle;
+                    }
+                }
+            }
+        }
+    }
+}
