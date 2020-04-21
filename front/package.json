@@ -1,13 +1,9 @@
 {
-<<<<<<< HEAD
+
   "name": "myblog_front",
   "version": "1.0.0",
   "description": "myblog front code",
-=======
-  "name": "blo_front",
-  "version": "1.0.0",
-  "description": "blo front code",
->>>>>>> 35d5e5877db8a35a5dcdd944a7545ff0aed3a54b
+
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
