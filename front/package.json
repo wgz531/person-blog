@@ -1,7 +1,7 @@
 {
-  "name": "blog_front",
+  "name": "blo_front",
   "version": "1.0.0",
-  "description": "blog front code",
+  "description": "blo front code",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
