@@ -16,6 +16,10 @@ Including another URLconf
 
 from django.urls import path,include
 from apps.articles import views
+from django.views import static
+from django.conf import settings
+from django.conf.urls import url
+
 
 
 urlpatterns = [
@@ -26,4 +30,6 @@ urlpatterns = [
     path('ueditor/', include('apps.ueditor.urls')),
     path('articles/', include('apps.articles.urls')),
     path('date/<int:year>/<int:month>/<int:day>/',views.timecate,name='date'),
+    url(r'^static/(?P<path>.*)$', static.serve,{'document_root': settings.STATIC_ROOT}, name='static'),
 ]
+
