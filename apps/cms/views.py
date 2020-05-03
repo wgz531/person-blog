@@ -119,7 +119,7 @@ class ArticlesListView(View):
                 end_date = datetime.strptime(end, '%Y/%m/%d')
             else:
                 end_date = datetime.today()
-            articles = articles.filter(pub_time__range=(make_aware(start_date), make_aware(end_date)))
+            articles = articles.filter(pub_time__range=((start_date), (end_date)))
 
         if title:
             articles = articles.filter(title__icontains=title)
